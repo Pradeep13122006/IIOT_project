@@ -215,19 +215,50 @@ def legacy_latest():
         })
 
 
+@app.route("/", methods=["GET"])
+def root():
+    """Root endpoint providing service status and API links."""
+    return jsonify({
+        "service": "Azure IoT Telemetry Backend Service",
+        "status": "online",
+        "student_name": state["student_name"],
+        "roll_number": state["roll_number"],
+        "demo_mode": DEMO_MODE_ACTIVE,
+        "endpoints": {
+            "health": "/api/health",
+            "status": "/api/status",
+            "latest_telemetry": "/api/telemetry/latest",
+            "history": "/api/telemetry/history",
+        },
+    })
+
+
+_workers_started = False
+_worker_start_lock = threading.Lock()
+
+
 def start_background_workers():
     """Starts the appropriate background worker depending on configuration."""
-    if azure_client.is_configured():
-        print("[Server] Starting Azure Event Hub background consumer...", flush=True)
-        azure_client.start()
+    global _workers_started
+    with _worker_start_lock:
+        if _workers_started:
+            return
+        _workers_started = True
 
-    if DEMO_MODE_ACTIVE:
-        print("[Server] Starting Demo Mode telemetry generator (Interval: 3s)...", flush=True)
-        demo_client.start()
+        if azure_client.is_configured():
+            print("[Server] Starting Azure Event Hub background consumer...", flush=True)
+            azure_client.start()
+
+        if DEMO_MODE_ACTIVE:
+            print("[Server] Starting Demo Mode telemetry generator (Interval: 3s)...", flush=True)
+            demo_client.start()
+
+
+# Ensure background workers start both under Gunicorn and direct python execution
+start_background_workers()
 
 
 if __name__ == "__main__":
-    start_background_workers()
     print(f"[Server] Backend running on http://127.0.0.1:{PORT}", flush=True)
     app.run(
         host="0.0.0.0",
