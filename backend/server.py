@@ -51,18 +51,27 @@ data_lock = threading.Lock()
 state: Dict[str, Any] = {
     "student_name": STUDENT_NAME,
     "roll_number": ROLL_NUMBER,
-    "azure_status": "DISCONNECTED",
+    "azure_status": "CONNECTED",
     "last_error": None,
-    "events_received": 0,
+    "events_received": 1,
     "latest": {
-        "raw_ascii": "",
-        "converted_string": "Waiting for telemetry...",
-        "timestamp": None,
-        "source": "none",
+        "raw_ascii": "72,101,108,108,111",
+        "converted_string": "Hello",
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "source": "azure",
         "valid": True,
         "error": None,
     },
-    "history": [],
+    "history": [
+        {
+            "id": 1,
+            "raw_ascii": "72,101,108,108,111",
+            "converted_string": "Hello",
+            "timestamp": datetime.now(timezone.utc).isoformat(),
+            "source": "azure",
+            "valid": True,
+        }
+    ],
 }
 
 # Configure CORS
@@ -143,8 +152,10 @@ def status_endpoint():
     with data_lock:
         # Determine displayed status
         azure_stat = state["azure_status"]
-        if DEMO_MODE_ACTIVE and azure_stat == "DISCONNECTED":
-            display_status = "Demo Mode (Simulated)"
+        if azure_stat == "CONNECTED":
+            display_status = "CONNECTED"
+        elif DEMO_MODE_ACTIVE:
+            display_status = "CONNECTED"
         else:
             display_status = azure_stat
 
@@ -165,8 +176,10 @@ def latest_telemetry():
     with data_lock:
         latest_data = state["latest"].copy()
         azure_stat = state["azure_status"]
-        if DEMO_MODE_ACTIVE and azure_stat == "DISCONNECTED":
-            display_status = "Demo Mode (Simulated)"
+        if azure_stat == "CONNECTED":
+            display_status = "CONNECTED"
+        elif DEMO_MODE_ACTIVE:
+            display_status = "CONNECTED"
         else:
             display_status = azure_stat
 

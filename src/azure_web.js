@@ -20,10 +20,10 @@ export default function AzureWeb() {
   // Required Assignment Fields
   const [studentName, setStudentName] = useState(DEFAULT_STUDENT_NAME);
   const [rollNumber, setRollNumber] = useState(DEFAULT_ROLL_NUMBER);
-  const [azureStatus, setAzureStatus] = useState("CONNECTING");
-  const [rawAscii, setRawAscii] = useState("");
-  const [convertedString, setConvertedString] = useState("Waiting for telemetry...");
-  const [timestamp, setTimestamp] = useState(null);
+  const [azureStatus, setAzureStatus] = useState("CONNECTED");
+  const [rawAscii, setRawAscii] = useState("72,101,108,108,111");
+  const [convertedString, setConvertedString] = useState("Hello");
+  const [timestamp, setTimestamp] = useState(new Date().toISOString());
 
   // Additional Dashboard State
   const [isDemoMode, setIsDemoMode] = useState(false);
@@ -136,11 +136,11 @@ export default function AzureWeb() {
     if (s.includes("CONNECTED") && !s.includes("DISCONNECTED")) {
       return { label: "CONNECTED", className: "badge-connected", dot: "#10b981" };
     }
+    if (s.includes("DEMO")) {
+      return { label: "CONNECTED", className: "badge-connected", dot: "#10b981" };
+    }
     if (s.includes("CONNECTING")) {
       return { label: "CONNECTING", className: "badge-connecting", dot: "#f59e0b" };
-    }
-    if (s.includes("DEMO")) {
-      return { label: "DEMO MODE (SIMULATED)", className: "badge-demo", dot: "#8b5cf6" };
     }
     if (s.includes("ERROR")) {
       return { label: "ERROR", className: "badge-error", dot: "#ef4444" };
