@@ -1,5 +1,5 @@
 {
-  "name": "azure_web",
+  "name": "iiot_project",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -22,6 +22,12 @@
     "extends": [
       "react-app",
       "react-app/jest"
+    ]
+  },
+  "jest": {
+    "testMatch": [
+      "**/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "**/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
     ]
   },
   "browserslist": {
