@@ -16,9 +16,9 @@ A full-stack IoT telemetry dashboard engineered to securely ingest, decode, and 
 | **Student Name** | **PRADEEP R** |
 | **Roll Number** | **24EIR070** |
 | **Project Name** | Azure IoT Hub Integration & Debugging Dashboard |
-| **Repository** | [https://github.com/Pradeep13122006/IIOT_project.git](https://github.com/Pradeep13122006/IIOT_project.git) |
-| **Frontend Platform** | Vercel (React SPA) |
-| **Backend Service** | Python Flask REST API with Azure EventHub Consumer |
+| **GitHub Repository** | [https://github.com/Pradeep13122006/IIOT_project.git](https://github.com/Pradeep13122006/IIOT_project.git) |
+| **Live Vercel Frontend** | [https://iiot-project.vercel.app](https://iiot-project.vercel.app) |
+| **Live Backend API (Render)** | [https://iiot-project-n3yy.onrender.com](https://iiot-project-n3yy.onrender.com) |
 
 ---
 
@@ -344,15 +344,10 @@ Because Azure Event Hub requires an active background consumer process, deploy t
 
 ## 📌 Submission Checklist
 
-- [x] **Student Name configured**: `PRADEEP R`
-- [x] **Roll Number configured**: `24EIR070`
-- [x] **Azure Connection Status displayed**: Live indicator with `CONNECTED`, `CONNECTING`, `DISCONNECTED`, `ERROR`, or `DEMO MODE`
-- [x] **Received ASCII Values displayed**: Raw codes (e.g., `72,101,108,108,111`)
-- [x] **Converted String displayed**: Decoded message (e.g., `Hello`)
-- [x] **Last Event Timestamp displayed**: Formatted localized date & time
-- [x] **ASCII Conversion tested**: `72,101,108,108,111` $\rightarrow$ `Hello` verified with 14 unit tests
-- [x] **Backend unit tests passed**: 20/20 pytest tests passing
-- [x] **Frontend unit tests passed**: 3/3 Jest tests passing
-- [x] **Production build passed**: `npm run build` compiled cleanly
-- [x] **Security verified**: Zero secrets, `.env` files, or access keys committed
-- [x] **Vercel routing configured**: `vercel.json` SPA rewrites created
+1. [x] **GitHub repository URL**: [https://github.com/Pradeep13122006/IIOT_project.git](https://github.com/Pradeep13122006/IIOT_project.git)
+2. [x] **Live Vercel frontend URL**: [https://iiot-project.vercel.app](https://iiot-project.vercel.app)
+3. [x] **Backend deployment URL**: [https://iiot-project-n3yy.onrender.com](https://iiot-project-n3yy.onrender.com)
+4. [x] **Evidence that frontend production build passed**: Verified with `npm run build`
+5. [x] **Evidence that backend tests passed**: 20/20 pytest tests passing
+6. [x] **Evidence of ASCII conversion working**: `72,101,108,108,111` $\rightarrow$ `Hello` verified
+7. [x] **Azure telemetry integration ready**: Configurable via `AZURE_CONNECTION_STRING` with Demo Mode fallback
