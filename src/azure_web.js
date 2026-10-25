@@ -1,9 +1,14 @@
 import React, { useEffect, useState, useCallback } from "react";
 import "./App.css";
 
-// API Base URL configured via environment or local default
+// API Base URL: auto-detects localhost for dev and Render for production
 const API_BASE_URL =
-  process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:5000";
+  process.env.REACT_APP_API_BASE_URL ||
+  (typeof window !== "undefined" &&
+  (window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1")
+    ? "http://127.0.0.1:5000"
+    : "https://iiot-project-n3yy.onrender.com");
 
 // Fallback student details if not yet configured in backend
 const DEFAULT_STUDENT_NAME =
